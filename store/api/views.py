@@ -20,3 +20,5 @@ def get_checkout_session():
         cancel_url='http://localhost:8000/cancel/',
     )
 
+
+def 
