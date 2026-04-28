@@ -1,5 +1,4 @@
 import stripe
-import os
 from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
@@ -10,7 +9,10 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 def get_checkout_session(request, item_id):
-    item = models.Item.objects.get(id=item_id)
+    item = get_object_or_404(models.Item, id=item_id)
+
+    if request.method != "GET":
+        return JsonResponse({"error": "Invalid method"}, status=405)
 
     try:
         session = stripe.checkout.Session.create(
