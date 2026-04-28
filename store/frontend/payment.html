@@ -7,6 +7,16 @@
     <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
+<h1>{{ item.name }}</h1>
+<p>{{ item.description }}</p>
+<p>{{ item.price }}</p>
+
+<button id="buy-button">Buy</button>
+
+<script>
+  const STRIPE_PUBLIC_KEY = "{{ STRIPE_PUBLIC_KEY }}";
+  const ITEM_ID = "{{ item.id }}";
+</script>
 
 <button id="buy-btn">Оплатить</button>
 
