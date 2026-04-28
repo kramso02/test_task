@@ -1,7 +1,8 @@
 import stripe
 import os
+from django.conf import settings
 
-stripe.api_key = os.getenv('STRIPE_API_KEY')
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 def get_checkout_session():
@@ -19,6 +20,3 @@ def get_checkout_session():
         success_url='http://localhost:8000/success/',
         cancel_url='http://localhost:8000/cancel/',
     )
-
-
-def 
