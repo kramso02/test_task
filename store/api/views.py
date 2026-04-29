@@ -32,7 +32,7 @@ def get_checkout_session(request, order_id):
                 },
                 'unit_amount': int(order_item.item.price * 100),
             },
-            'quantity': order_item.quantity,
+            'quantity': 1,
         }
 
         if tax_id:
