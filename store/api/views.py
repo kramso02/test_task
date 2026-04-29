@@ -8,23 +8,27 @@ from payments import models
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
-def get_checkout_session(request, item_id):
-    item = get_object_or_404(models.Item, id=item_id)
-
+def get_checkout_session(request, order_id):
     if request.method != "GET":
         return JsonResponse({"error": "Invalid method"}, status=405)
+
+    order = get_object_or_404(models.Order, id=order_id)
+    line_items = []
+
+    for order_item in order.items.all():
+        line_items.append({
+            'price_data': {
+                'currency': 'usd',
+                'product_data': {'name': order_item.item.name},
+                'unit_amount': int(order_item.item.price * 100),
+            },
+            'quantity': 1,
+        })
 
     try:
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],
-            line_items=[{
-                'price_data': {
-                    'currency': 'usd',
-                    'product_data': {'name': item.name},
-                    'unit_amount': int(item.price * 100),
-                },
-                'quantity': 1,
-            }],
+            line_items=line_items,
             mode='payment',
             success_url='http://localhost:8000/success/',
             cancel_url='http://localhost:8000/cancel/',
