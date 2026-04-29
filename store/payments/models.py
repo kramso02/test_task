@@ -17,3 +17,15 @@ class Order(models.Model):
 class OrderItem(models.Model):
     item = models.ForeignKey(Item, on_delete=models.RESTRICT)
     order = models.ForeignKey(Order, on_delete=models.RESTRICT, related_name='items')
+
+
+class Discount(models.Model):
+    name = models.CharField(max_length=100)
+    percent = models.PositiveIntegerField()
+    stripe_coupon_id = models.CharField(max_length=100, blank=True, null=True)
+
+
+class Tax(models.Model):
+    name = models.CharField(max_length=100)
+    percent = models.PositiveIntegerField()
+    stripe_tax_id = models.CharField(max_length=100, blank=True, null=True)

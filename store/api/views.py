@@ -23,6 +23,7 @@ def get_checkout_session(request, order_id):
                 'unit_amount': int(order_item.item.price * 100),
             },
             'quantity': 1,
+            'tax_rates': [tax_rate.id],
         })
 
     try:
