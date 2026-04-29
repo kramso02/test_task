@@ -8,3 +8,12 @@ class Item(models.Model):
 
     def __repr__(self):
         return f"{self.name} - {self.description}"
+
+
+class Order(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class OrderItem(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.RESTRICT)
+    order = models.ForeignKey(Order, on_delete=models.RESTRICT, related_name='items')
