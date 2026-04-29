@@ -1,7 +1,7 @@
 const stripe = Stripe(STRIPE_PUBLIC_KEY);
 
 document.getElementById('buy-btn').addEventListener('click', async () => {
-    const response = await fetch(`/buy/${ITEM_ID}/`);
+    const response = await fetch(`/api/buy/${ITEM_ID}/`);
     const session = await response.json()
 
     if (session.id.startsWith("test_id")) {

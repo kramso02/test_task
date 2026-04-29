@@ -43,3 +43,11 @@ def render_item_html(request, item_id):
         "item": item,
         "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
     })
+
+
+def success_view(request):
+    return render(request, "success.html")
+
+
+def cancel_view(request):
+    return render(request, "cancel.html")
